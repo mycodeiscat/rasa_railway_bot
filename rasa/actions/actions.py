@@ -4,6 +4,7 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 
 
+# Custom action for validating and returning all booking info as JSON
 class ActionSlotsToJSON(Action):
 
     def name(self) -> Text:
