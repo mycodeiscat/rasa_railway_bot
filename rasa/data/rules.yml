@@ -1,0 +1,25 @@
+version: "2.0"
+
+rules:
+- rule: Help whenever user asks
+  steps:
+  - intent: help
+  - action: utter_help
+- rule: Activate booking form
+  steps:
+    - intent: booking
+    - action: booking_form
+    - active_loop: booking_form
+- rule: Submit booking form
+  condition:
+    - active_loop: booking_form
+  steps:
+    - action: booking_form
+    - active_loop: null
+    - action: utter_submit
+    - action: utter_booking_info
+- rule: Fallback if bot has low NLU confidence
+  steps:
+    - intent: nlu_fallback
+    - action: utter_please_rephrase
+

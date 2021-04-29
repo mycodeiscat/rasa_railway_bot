@@ -1,0 +1,112 @@
+version: "2.0"
+
+actions:
+  - action_return_booking_info_json
+
+intents:
+  - greet
+  - help
+  - booking
+
+forms:
+  booking_form:
+    departure_city:
+     - type: from_entity
+       entity: city
+       role: departure
+    destination_city:
+      - type: from_entity
+        entity: city
+        role: destination
+    departure_date:
+      - type: from_entity
+        entity: date
+    departure_time:
+      - type: from_entity
+        entity: time
+    number_of_passengers:
+      - type: from_entity
+        entity: number
+
+slots:
+  departure_city:
+    type: text
+    auto_fill: false
+    influence_conversation: false
+  destination_city:
+    type: text
+    auto_fill: false
+    influence_conversation: false
+  number_of_passengers:
+    type: float
+    auto_fill: false
+    influence_conversation: false
+    min_value: 1.0
+    max_value: 100.0
+  departure_date:
+    type: float
+    auto_fill: false
+    influence_conversation: false
+  departure_time:
+    type: text
+    auto_fill: false
+    influence_conversation: false
+
+
+entities:
+  - number
+  - time
+  - date
+  - city
+
+responses:
+  utter_greet:
+  - text: "Привіт! Я бот Олексій, я помічник по замовленню квитків"
+
+  utter_help:
+  - text: "Для замовлення квитків напишіть кількість білетів, пункт відправлення та призначення, дату та час"
+
+  utter_submit:
+  - text: "Дякую, замовлення прийнято"
+
+  utter_ask_departure_city:
+  - text: "Звідки їдемо?"
+
+  utter_ask_destination_city:
+  - text: "Куди їдемо?"
+
+  utter_ask_departure_date:
+  - text: "Коли відправляємося?"
+
+  utter_ask_departure_time:
+    - text: "О якому часі?"
+
+  utter_ask_number_of_passengers:
+  - text: "Скільки білетів?"
+
+#  utter_booking_info:
+#    - custom:
+#      number_of_tickets: "{number_of_passengers}"
+#      date: "{departure_date}"
+#      time: "{departure_time}"
+#      to: "{destination_city}"
+#      from: "{departure_city}"
+
+  utter_booking_info:
+  - text: "
+    - number_of_tickets: {number_of_passengers}\n
+    - date: {departure_date}\n
+    - time: {departure_time}\n
+    - to: {destination_city}\n
+    - from: {departure_city}"
+
+  utter_out_of_scope:
+    - text: "Вибачте, я не можу опрацювати цей запрос"
+
+  utter_please_rephrase:
+    - text: "Вибачте, я вас не зрозумів. Перефразуйте будь ласка ваше запитання."
+
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

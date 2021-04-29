@@ -1,0 +1,82 @@
+version: "2.0"
+
+stories:
+
+- story: booking
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: booking
+  - action: booking_form
+  - active_loop: booking_form
+
+- story: booking with help
+  steps:
+  - intent: help
+  - action: utter_help
+  - intent: booking
+  - action: booking_form
+  - active_loop: booking_form
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: booking
+    entities:
+    - number: '2'
+    - city: Одеса
+    - date: 20.04.2021
+    - time: 16:30
+  - action: booking_form
+  - active_loop: booking_form
+  - slot_was_set:
+    - destination_city: Одеса
+  - slot_was_set:
+    - departure_date: 20.04.2021
+  - slot_was_set:
+    - departure_time: 16:30
+  - slot_was_set:
+    - number_of_passengers: '2'
+  - slot_was_set:
+    - requested_slot: departure_city
+  - slot_was_set:
+    - departure_city: Львів
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_submit
+  - action: utter_booking_info
+
+- story: interactive_story_1
+  steps:
+  - intent: booking
+    entities:
+    - city: Київ
+    - city: Запоріжжя
+    - date: 5 грудня
+  - action: booking_form
+  - active_loop: booking_form
+  - slot_was_set:
+    - departure_city: Київ
+  - slot_was_set:
+    - destination_city: Запоріжжя
+  - slot_was_set:
+    - departure_date: 5 грудня
+  - slot_was_set:
+    - requested_slot: departure_time
+  - intent: booking
+    entities:
+    - time: 20:00
+  - action: booking_form
+  - slot_was_set:
+    - departure_time: 20:00
+  - slot_was_set:
+    - requested_slot: number_of_passengers
+  - slot_was_set:
+    - number_of_passengers: 1
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_submit
+  - action: utter_booking_info
