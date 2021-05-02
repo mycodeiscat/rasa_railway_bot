@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify, make_response
 import requests
 import json
+from flask_cors import CORS, cross_origin
 
 
 # App factory
@@ -11,11 +12,13 @@ def create_app(config_filename):
 
 
 app = create_app("config.py")
+cors = CORS(app)
 
 
 # Proxy endpoint for communicating with bot from frontend. Due to security reasons it'd be better to avoid sending
 # requests directly to RASA server.
 @app.route('/railway', methods=['POST'])
+@cross_origin()
 def messageBot():
     text = request.get_json()
     payload = json.dumps({
