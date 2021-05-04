@@ -13,6 +13,8 @@ import pymorphy2
 morph = pymorphy2.MorphAnalyzer(lang='uk')
 
 
+# TODO: Read city list from file and skip morphy transformation if it's already present in list.
+
 # Custom action for returning all booking info as JSON
 class ActionSlotsToJSON(Action):
 
@@ -23,7 +25,8 @@ class ActionSlotsToJSON(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         result_dict = {'number_of_tickets': tracker.get_slot('number_of_passengers'),
-                       'to': tracker.get_slot('destination_city').encode("utf-8"), 'date': tracker.get_slot('departure_date'),
+                       'to': tracker.get_slot('destination_city').encode("utf-8"),
+                       'date': tracker.get_slot('departure_date'),
                        'time': tracker.get_slot('departure_time'), 'from': tracker.get_slot('departure_city')}
         dispatcher.utter_message(text=json.dumps(result_dict))
         return []
@@ -63,6 +66,7 @@ class ValidateBookingForm(FormValidationAction):
         else:
             return {"departure_time": human_time}
 
+    # Fill only the requested slot to avoid role confusion by NRE. Also used to convert city name to normal form using pymorphy2
     async def validate_departure_city(
             self,
             slot_value: Any,
@@ -78,6 +82,7 @@ class ValidateBookingForm(FormValidationAction):
             return {requested_slot: normal_form}
         return {"departure_city": normal_form}
 
+    # Fill only the requested slot to avoid role confusion by NRE. Also used to convert city name to normal form using pymorphy2
     async def validate_destination_city(
             self,
             slot_value: Any,

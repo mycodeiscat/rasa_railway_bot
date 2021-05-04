@@ -15,6 +15,7 @@ app = create_app("config.py")
 cors = CORS(app)
 
 
+# Endpoint to serve chat webpage
 @app.route('/', methods=['GET'])
 @cross_origin()
 def mainPage():
