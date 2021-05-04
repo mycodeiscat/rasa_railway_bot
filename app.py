@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response, render_template
 import requests
 import json
 from flask_cors import CORS, cross_origin
@@ -13,6 +13,12 @@ def create_app(config_filename):
 
 app = create_app("config.py")
 cors = CORS(app)
+
+
+@app.route('/', methods=['GET'])
+@cross_origin()
+def mainPage():
+    return render_template('index.html')
 
 
 # Proxy endpoint for communicating with bot from frontend. Due to security reasons it'd be better to avoid sending

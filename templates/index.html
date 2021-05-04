@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Railway Bot</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../static/styles/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
@@ -38,6 +38,7 @@
 <script>
     (function () {
         var Message;
+        const name = Math.random()
         Message = function (arg) {
             this.text = arg.text, this.message_side = arg.message_side;
             this.draw = function (_this) {
@@ -67,7 +68,7 @@
                 if (text.trim() === '') {
                     return;
                 }
-                const body = JSON.stringify({sender: 'user', message: text});
+                const body = JSON.stringify({sender: name, message: text});
                 fetch(url, {
                     method: 'post',
                     headers: {

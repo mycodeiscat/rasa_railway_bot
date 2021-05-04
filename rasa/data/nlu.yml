@@ -1,57 +1,56 @@
 version: "2.0"
 nlu:
-- intent: greet
-  examples: |
-    - привіт
-    - доброго дня
-    - хай
-    - йо
-    - доброго ранку
-    - добрий ранок
-    - добрий день
-- intent: help
-  examples: |
-    - хелп
-    - допомога
-    - потрібна допомога
-    - допоможи
-    - рятуйте
-    - не розумію
-    - як це працює
-    - як ти працюєш
-- intent: booking
-  examples: |
-    - Хочу замовити
-    - Квитки
-    - Замовити
-    - з [Вінниці]{"entity": "city", "role": "departure", "value": "\u0412\u0456\u043d\u043d\u0438\u0446\u044f"} в [Івано-Франківськ]{"entity": "city", "role": "destination"} [о шостій]{"entity": "time", "value": "06:00"}
-    - [три](number) квитка в [Київ]{"entity": "city", "role": "destination"}
-    - [Харків]{"entity": "city", "role": "departure"} [Львів]{"entity": "city", "role": "destination"} [14 грудня]{"entity": "date", "value": "14.12.2021"}
-    - квиток на [сьогодні]{"entity": "date", "value": "29.04.2021"} в [берлін]{"entity": "city", "role": "destination", "value": "\u0411\u0435\u0440\u043b\u0456\u043d"}
-    - Хочу замовити [2](number) білета в [Одесу]{"entity": "city", "role": "destination", "value": "\u041e\u0434\u0435\u0441\u0430"}  [20 червня]{"entity": "date", "value": "20.04.2021"}  на [16:30](time)
-    - Хочу замовити [2](number) білета в [Одесу]{"entity": "city", "role": "destination", "value": "\u041e\u0434\u0435\u0441\u0430"} [20 червня]{"entity": "date", "value": "20.04.2021"} на [16:30](time)
-    - [Львів]{"entity": "city", "role": "departure"}
-    - з [києва]{"entity": "city", "role": "departure", "value": "\u041a\u0438\u0457\u0432"} в [запоріжжя]{"entity": "city", "role": "destination", "value": "\u0417\u0430\u043f\u043e\u0440\u0456\u0436\u0436\u044f"} [5 грудня](date)
-    - [8 вечора]{"entity": "time", "value": "20:00"}
-    - [один]{"entity": "number", "value": 1}
-- synonym: Вінниця
-  examples: |
-    - Вінниці
-- synonym: 06:00
-  examples: |
-    - о шостій
-- synonym: 14.12.2021
-  examples: |
-    - 14 грудня
-- synonym: 29.04.2021
-  examples: |
-    - сьогодні
-- synonym: Берлін
-  examples: |
-    - берлін
-- synonym: Одеса
-  examples: |
-    - Одесу
-- synonym: 20.04.2021
-  examples: |
-    - 20 червня
+  - intent: out_of_scope
+    examples: |
+      - Чого не приїхав поїзд
+      - квитки на літак
+      - як знайти вагон
+  - intent: greet
+    examples: |
+      - привіт
+      - доброго дня
+      - хай
+      - йо
+      - доброго ранку
+      - добрий ранок
+      - добрий день
+  - intent: help
+    examples: |
+      - хелп
+      - допомога
+      - потрібна допомога
+      - допоможи
+      - рятуйте
+      - не розумію
+      - як це працює
+      - як ти працюєш
+  - intent: booking
+    examples: |
+      - Хочу замовити
+      - Квитки
+      - Замовити
+      - з [Вінниці]{"entity": "city", "role": "departure", "value": "Вінниця"} в [Івано-Франківськ]{"entity": "city", "role": "destination", "value": "Івано-Франківськ"} [о шостій]
+      - три квитка в [Київ]{"entity": "city", "role": "destination"}
+      - [Харків]{"entity": "city", "role": "departure"} [Львів]{"entity": "city", "role": "destination"} 14 грудня
+      - квиток на сьогодні в [берлін]{"entity": "city", "role": "destination", "value": "Берлін"}
+      - Хочу замовити 2 білета в [Одесу]{"entity": "city", "role": "destination", "value": "Одеса"}  20 червня на 16:30
+      - Хочу замовити 2 білета в [Одесу]{"entity": "city", "role": "destination", "value": "Одеса"} 20 червня на 16:30
+      - з [києва]{"entity": "city", "role": "departure", "value": "Київ"} в [запоріжжя]{"entity": "city", "role": "destination", "value": "Запоріжжя"} 5 грудня
+      - Замовляю десять квитків в [Запоріжжя]{"entity": "city", "role": "destination"} 20 грудня на 15:20
+      - два квитки з [Тернопіля]{"entity": "city", "role": "departure"}
+      - Поїзд [Київ]{"entity": "city", "role": "departure"}-[Мелітополь]{"entity": "city", "role": "destination"} на завтра
+  - synonym: Вінниця
+    examples: |
+      - Вінниці
+  - synonym: Берлін
+    examples: |
+      - берлін
+  - synonym: Одеса
+    examples: |
+      - Одесу
+  - synonym: Київ
+    examples: |
+      - києва
+  - synonym: Запоріжжя
+    examples: |
+      - запоріжжя

@@ -2,7 +2,7 @@ from app import app
 import webbrowser
 import os
 
-filename = './deploy/index.html'
+filename = 'templates/index.html'
 
 if __name__ == "__main__":
     webbrowser.open('file://' + os.path.realpath(filename), new=2)

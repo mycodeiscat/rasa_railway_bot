@@ -46,7 +46,7 @@ stories:
     - requested_slot: null
   - active_loop: null
   - action: utter_submit
-  - action: utter_booking_info
+  - action: action_return_booking_info_json
 
 - story: interactive_story_1
   steps:
@@ -79,4 +79,96 @@ stories:
     - requested_slot: null
   - active_loop: null
   - action: utter_submit
-  - action: utter_booking_info
+  - action: action_return_booking_info_json
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - intent: booking
+    entities:
+    - number: 10
+    - city: Запоріжжя
+    - date: 20.12.2021
+    - time: 15:20
+  - action: booking_form
+  - active_loop: booking_form
+  - slot_was_set:
+    - destination_city: Запоріжжя
+  - slot_was_set:
+    - departure_date: 20.12.2021
+  - slot_was_set:
+    - departure_time: 15:20
+  - slot_was_set:
+    - number_of_passengers: 10
+  - slot_was_set:
+    - requested_slot: departure_city
+  - slot_was_set:
+    - departure_city: Івано-Франківськ
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_submit
+  - action: action_return_booking_info_json
+
+- story: interactive_story_1
+  steps:
+  - intent: booking
+    entities:
+    - number: 2
+    - city: Тернопіля
+    - city: Дніпра
+  - action: booking_form
+  - active_loop: booking_form
+  - slot_was_set:
+    - number_of_passengers: 2
+  - slot_was_set:
+    - destination_city: Дніпро
+  - slot_was_set:
+    - departure_city: Тернопіль
+  - slot_was_set:
+    - requested_slot: departure_date
+  - slot_was_set:
+    - departure_date: 02.07.2021
+  - slot_was_set:
+    - requested_slot: departure_time
+  - slot_was_set:
+      - departure_date: 15:30
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_submit
+  - action: action_return_booking_info_json
+
+- story: interactive_story_1
+  steps:
+  - intent: booking
+    entities:
+    - city: Київ
+    - city: Мелітополь
+    - time: '2021-05-05T00:00:00.000+00:00'
+  - action: booking_form
+  - active_loop: booking_form
+  - slot_was_set:
+    - departure_time: null
+  - slot_was_set:
+    - destination_city: Мелітополь
+  - slot_was_set:
+    - departure_city: Київ
+  - slot_was_set:
+    - departure_date: 05.05.2021
+  - slot_was_set:
+    - requested_slot: departure_time
+  - slot_was_set:
+    - departure_time: 02:00
+  - slot_was_set:
+    - requested_slot: number_of_passengers
+  - slot_was_set:
+    - number_of_passengers: 1
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_submit
+  - action: action_return_booking_info_json
+  - intent: out_of_scope
+  - action: utter_out_of_scope

@@ -3,15 +3,21 @@
 language: "uk"
 
 pipeline:
+#  - name: HFTransformersNLP
+#    model_name: "roberta"
+#    model_weights: "youscan/ukr-roberta-base"
+#    cache_dir: null
+#  - name: LanguageModelTokenizer
+#  - name: LanguageModelFeaturizer
   - name: SpacyNLP
     model: "xx_ent_wiki_sm"
     case_sensitive: False
   - name: SpacyTokenizer
   - name: SpacyFeaturizer
-  - name: RegexFeaturizer
   - name: LexicalSyntacticFeaturizer
   - name: CountVectorsFeaturizer
   - name: CountVectorsFeaturizer
+  - name: RegexEntityExtractor
     analyzer: "char_wb"
     min_ngram: 1
     max_ngram: 4
@@ -19,14 +25,45 @@ pipeline:
     epochs: 100
     constrain_similarities: true
   - name: EntitySynonymMapper
-  - name: SpacyEntityExtractor
-    dimensions: ["GPE"]
   - name: FallbackClassifier
     threshold: 0.3
     ambiguity_threshold: 0.1
+#  - name: "CRFEntityExtractor"
+#    "BILOU_flag": True
+#    "features": [
+#      [ "low", "title", "upper" ],
+#      [
+#          "bias",
+#          "low",
+#          "prefix5",
+#          "prefix2",
+#          "suffix5",
+#          "suffix3",
+#          "suffix2",
+#          "upper",
+#          "title",
+#          "digit",
+#          "pattern",
+#          "pos",
+#          "pos2"
+#      ],
+#      [ "low", "title", "upper" ],
+#    ]
+#    "max_iterations": 100
+#    "L1_c": 0.1
+#    "L2_c": 0.1
+#    "featurizers": []
+  - name: DucklingEntityExtractor
+    url: "http://localhost:8000"
+    dimensions: ["date", "time", "number"]
+    locale: "uk_UK"
+    timezone: "Europe/Kyiv"
+    timeout: 3
   - name: ResponseSelector
     epochs: 100
     constrain_similarities: true
+
+
 
 # # No configuration for the NLU pipeline was provided. The following default pipeline was used to train your model.
 # # If you'd like to customize it, uncomment and adjust the pipeline.

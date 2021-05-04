@@ -1,33 +1,17 @@
-version: "2.0"
-
-actions:
-  - action_return_booking_info_json
-
+version: '2.0'
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
 intents:
+  - booking
+  - out_of_scope
   - greet
   - help
-  - booking
-
-forms:
-  booking_form:
-    departure_city:
-     - type: from_entity
-       entity: city
-       role: departure
-    destination_city:
-      - type: from_entity
-        entity: city
-        role: destination
-    departure_date:
-      - type: from_entity
-        entity: date
-    departure_time:
-      - type: from_entity
-        entity: time
-    number_of_passengers:
-      - type: from_entity
-        entity: number
-
+entities:
+  - city
+  - date
+  - number
+  - time
 slots:
   departure_city:
     type: text
@@ -41,72 +25,67 @@ slots:
     type: float
     auto_fill: false
     influence_conversation: false
-    min_value: 1.0
     max_value: 100.0
+    min_value: 1.0
   departure_date:
-    type: float
+    type: any
     auto_fill: false
     influence_conversation: false
   departure_time:
-    type: text
+    type: any
     auto_fill: false
     influence_conversation: false
-
-
-entities:
-  - number
-  - time
-  - date
-  - city
-
 responses:
   utter_greet:
-  - text: "Привіт! Я бот Олексій, я помічник по замовленню квитків"
-
+    - text: Привіт! Я бот Олексій, я помічник по замовленню квитків
   utter_help:
-  - text: "Для замовлення квитків напишіть кількість білетів, пункт відправлення та призначення, дату та час"
-
+    - text: Для замовлення квитків напишіть кількість білетів, пункт відправлення та призначення, дату та час
   utter_submit:
-  - text: "Дякую, замовлення прийнято"
-
+    - text: Дякую, замовлення прийнято
   utter_ask_departure_city:
-  - text: "Звідки їдемо?"
-
+    - text: Звідки їдемо?
   utter_ask_destination_city:
-  - text: "Куди їдемо?"
-
+    - text: Куди їдемо?
   utter_ask_departure_date:
-  - text: "Коли відправляємося?"
-
+    - text: Якого числа відправляємося?
   utter_ask_departure_time:
-    - text: "О якому часі?"
-
+    - text: О якому часі?
   utter_ask_number_of_passengers:
-  - text: "Скільки білетів?"
-
-#  utter_booking_info:
-#    - custom:
-#      number_of_tickets: "{number_of_passengers}"
-#      date: "{departure_date}"
-#      time: "{departure_time}"
-#      to: "{destination_city}"
-#      from: "{departure_city}"
-
+    - text: Скільки білетів?
   utter_booking_info:
-  - text: "
-    - number_of_tickets: {number_of_passengers}\n
-    - date: {departure_date}\n
-    - time: {departure_time}\n
-    - to: {destination_city}\n
-    - from: {departure_city}"
-
+    - text: |2-
+         - number_of_tickets: {number_of_passengers}
+         - date: {departure_date}
+         - time: {departure_time}
+         - to: {destination_city}
+         - from: {departure_city}
   utter_out_of_scope:
-    - text: "Вибачте, я не можу опрацювати цей запрос"
-
+    - text: Вибачте, я не можу опрацювати цей запрос
   utter_please_rephrase:
-    - text: "Вибачте, я вас не зрозумів. Перефразуйте будь ласка ваше запитання."
-
-
-session_config:
-  session_expiration_time: 60
-  carry_over_slots_to_new_session: true
+    - text: Вибачте, я вас не зрозумів. Перефразуйте будь ласка ваше запитання.
+  utter_default:
+    - text: Вибачте, я вас не зрозумів. Перефразуйте будь ласка ваше запитання.
+actions:
+  - action_return_booking_info_json
+  - utter_out_of_scope
+  - utter_submit
+  - validate_booking_form
+forms:
+  booking_form:
+    departure_city:
+      - type: from_entity
+        entity: city
+        role: departure
+    destination_city:
+      - type: from_entity
+        entity: city
+        role: destination
+    departure_date:
+      - type: from_entity
+        entity: date
+    departure_time:
+      - type: from_entity
+        entity: time
+    number_of_passengers:
+      - type: from_entity
+        entity: number
