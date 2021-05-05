@@ -1,15 +1,13 @@
 version: '3.0'
 services:
   rasa:
-    image: dockingtoaster/rasa-spacy-ent:0.0.3
+    image: dockingtoaster/rasa-spacy-ent:0.2.0
     ports:
       - 5005:5005
-    volumes:
-      - ./:/app
     command:
       - run
   actions:
-    image: dockingtoaster/rasa-action-railway:0.0.1
+    image: dockingtoaster/rasa-action-railway:0.0.4
     ports:
       - 5055:5055
     expose: [5005]
