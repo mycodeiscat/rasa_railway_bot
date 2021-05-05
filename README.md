@@ -4,8 +4,8 @@ Bot for ticket booking
 
 ## Installation
 
-###**For whatever reason Rasa in container just fallbacks every time. I'd be really grateful if you'll point out how to fix it**   
-~~Using Docker:~~
+  
+Using Docker(Current rasa container accuracy is awful, but at least it deploys it in one click):
 ```bash
 git clone https://github.com/mycodeiscat/rasa_railway_bot.git
 git checkout docker
