@@ -31,11 +31,11 @@ pip3 install -r requirements.txt
 ```
 Launching bot and flask wrapper:
 ```
-cd rasa_test/rasa
+cd ./rasa
 rasa run --enable-api
 rasa run actions
 docker run -p 8000:8000 rasa/duckling
-cd rasa_test/app
+cd ./app
 python3 -m flask run --host=0.0.0.0 --port=8080
 ```
     
