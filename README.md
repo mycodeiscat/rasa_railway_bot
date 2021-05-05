@@ -5,7 +5,10 @@ Foobar is a Python library for dealing with word pluralization.
 ## Installation
 
 ### Using Docker:
-
+```bash
+git clone https://github.com/mycodeiscat/rasa_railway_bot.git
+git checkout docker
+```
 ```bash
 cd rasa
 docker-compose up
@@ -17,6 +20,10 @@ After deploying four containers:
 * Flask Web API(localhost:8080), which serves html page and routes requests to Rasa bot.
 
 ### Without Docker(almost):
+```bash
+git clone https://github.com/mycodeiscat/rasa_railway_bot.git
+git checkout master
+```
 Installing dependencies:
 ```
 pip3 install -r requirements.txt
