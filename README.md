@@ -4,7 +4,8 @@ Foobar is a Python library for dealing with word pluralization.
 
 ## Installation
 
-### Using Docker:
+###**For whatever reason Rasa in container just fallbacks every time. I'd be really grateful if you'll point out how to fix it**   
+~~### Using Docker:~~
 ```bash
 git clone https://github.com/mycodeiscat/rasa_railway_bot.git
 git checkout docker
