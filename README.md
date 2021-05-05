@@ -82,3 +82,9 @@ Examples:
 - коли буде поїзд
 - чи варто чекати поїзд
 - дякую укрзалізниця
+
+### Conversation examples:
+ Help and greeting extraction
+![Conversation1](./assets/conversation1.png)
+ Booking extraction
+![Conversation2](./assets/conversation2.png)
