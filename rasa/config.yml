@@ -17,12 +17,11 @@ pipeline:
   - name: LexicalSyntacticFeaturizer
   - name: CountVectorsFeaturizer
   - name: CountVectorsFeaturizer
-  - name: RegexEntityExtractor
     analyzer: "char_wb"
     min_ngram: 1
     max_ngram: 4
   - name: DIETClassifier
-    epochs: 100
+    epochs: 300
     constrain_similarities: true
   - name: EntitySynonymMapper
   - name: FallbackClassifier
@@ -49,7 +48,7 @@ pipeline:
 #      ],
 #      [ "low", "title", "upper" ],
 #    ]
-#    "max_iterations": 100
+#    "max_iterations": 300
 #    "L1_c": 0.1
 #    "L2_c": 0.1
 #    "featurizers": []

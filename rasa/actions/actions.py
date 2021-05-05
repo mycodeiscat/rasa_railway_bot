@@ -9,6 +9,7 @@ import dateutil.parser
 from rasa_sdk.types import DomainDict
 
 import pymorphy2
+import unicodedata
 
 morph = pymorphy2.MorphAnalyzer(lang='uk')
 
@@ -24,11 +25,20 @@ class ActionSlotsToJSON(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        """
+
+        Args:
+            tracker: contains current slot values
+
+        Returns:
+            JSONified dictionary containing booking information
+        """
         result_dict = {'number_of_tickets': tracker.get_slot('number_of_passengers'),
-                       'to': tracker.get_slot('destination_city').encode("utf-8"),
+                       'to': tracker.get_slot('destination_city'),
                        'date': tracker.get_slot('departure_date'),
-                       'time': tracker.get_slot('departure_time'), 'from': tracker.get_slot('departure_city')}
-        dispatcher.utter_message(text=json.dumps(result_dict))
+                       'time': tracker.get_slot('departure_time'),
+                       'from': tracker.get_slot('departure_city')}
+        dispatcher.utter_message(text=json.dumps(result_dict, ensure_ascii=False))
         return []
 
 
@@ -37,7 +47,6 @@ class ValidateBookingForm(FormValidationAction):
     def name(self) -> Text:
         return "validate_booking_form"
 
-    # Splitting date and time into separate slots due to DucklingExtractor shoving everything into the time slot.
     async def validate_departure_time(
             self,
             slot_value: Any,
@@ -45,7 +54,15 @@ class ValidateBookingForm(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict,
     ) -> Dict[Text, Any]:
-        """Extract date from time."""
+        """
+        Splitting date and time into separate slots due to
+        DucklingExtractor shoving everything into the time slot.
+        Args:
+            slot_value: time value in UTC
+
+        Returns:
+            departure_date or departure_time depending on given input.
+        """
         time_slot = tracker.get_slot('departure_time')
         date_slot = tracker.get_slot('departure_date')
         requested_slot = tracker.get_slot('requested_slot')
@@ -54,6 +71,8 @@ class ValidateBookingForm(FormValidationAction):
         human_date = datetime_obj.strftime('%d.%m.%Y')
         human_time = datetime_obj.strftime('%H:%M')
         if requested_slot == "departure_date":
+            print("Slot_value:" + slot_value)
+            print("time_slots"+time_slot)
             return {"departure_date": human_date, "departure_time": time_slot}
         if date_slot is None:
             if human_time != "00:00":  # Temporary fix
@@ -66,7 +85,6 @@ class ValidateBookingForm(FormValidationAction):
         else:
             return {"departure_time": human_time}
 
-    # Fill only the requested slot to avoid role confusion by NRE. Also used to convert city name to normal form using pymorphy2
     async def validate_departure_city(
             self,
             slot_value: Any,
@@ -74,6 +92,15 @@ class ValidateBookingForm(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict
     ) -> Dict[Text, Any]:
+        """
+        Fill only the requested slot to avoid role confusion by NRE.
+        Also used to convert city name to normal form using pymorphy2
+        Args:
+            slot_value: city entity
+
+        Returns:
+            destination city: official city name
+        """
         origin_slot = tracker.get_slot('departure_city')
         destination_slot = tracker.get_slot('destination_city')
         requested_slot = tracker.get_slot('requested_slot')
@@ -82,7 +109,6 @@ class ValidateBookingForm(FormValidationAction):
             return {requested_slot: normal_form}
         return {"departure_city": normal_form}
 
-    # Fill only the requested slot to avoid role confusion by NRE. Also used to convert city name to normal form using pymorphy2
     async def validate_destination_city(
             self,
             slot_value: Any,
@@ -90,6 +116,15 @@ class ValidateBookingForm(FormValidationAction):
             tracker: Tracker,
             domain: DomainDict
     ) -> Dict[Text, Any]:
+        """
+        Fill only the requested slot to avoid role confusion by NRE.
+        Also used to convert city name to normal form using pymorphy2
+        Args:
+            slot_value: city entity
+
+        Returns:
+            destination city: official city name
+        """
         origin_slot = tracker.get_slot('departure_city')
         destination_slot = tracker.get_slot('destination_city')
         requested_slot = tracker.get_slot('requested_slot')

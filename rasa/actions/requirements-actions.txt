@@ -1,0 +1,3 @@
+python-dateutil~=2.8.1
+pymorphy2~=0.9.1
+pymorphy2-dicts-uk~=2.4.1

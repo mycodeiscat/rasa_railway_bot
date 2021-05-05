@@ -3,10 +3,10 @@ session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: true
 intents:
-  - booking
-  - out_of_scope
   - greet
   - help
+  - booking
+  - out_of_scope
 entities:
   - city
   - date
@@ -25,7 +25,7 @@ slots:
     type: float
     auto_fill: false
     influence_conversation: false
-    max_value: 100.0
+    max_value: 1000.0
     min_value: 1.0
   departure_date:
     type: any
@@ -52,13 +52,6 @@ responses:
     - text: О якому часі?
   utter_ask_number_of_passengers:
     - text: Скільки білетів?
-  utter_booking_info:
-    - text: |2-
-         - number_of_tickets: {number_of_passengers}
-         - date: {departure_date}
-         - time: {departure_time}
-         - to: {destination_city}
-         - from: {departure_city}
   utter_out_of_scope:
     - text: Вибачте, я не можу опрацювати цей запрос
   utter_please_rephrase:
