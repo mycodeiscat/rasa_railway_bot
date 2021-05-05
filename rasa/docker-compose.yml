@@ -1,7 +1,7 @@
 version: '3.0'
 services:
   rasa:
-    image: dockingtoaster/rasa-spacy-ent:0.0.2
+    image: dockingtoaster/rasa-spacy-ent:0.0.3
     ports:
       - 5005:5005
     volumes:
