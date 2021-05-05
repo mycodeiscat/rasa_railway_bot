@@ -11,7 +11,7 @@ def create_app(config_filename):
     return app
 
 
-app = create_app("config.py")
+app = create_app("config_docker.py")
 
 
 @app.route('/', methods=['GET'])

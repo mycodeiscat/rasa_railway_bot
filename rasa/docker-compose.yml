@@ -18,7 +18,7 @@ services:
     ports:
       - 8000:8000
   flask:
-    image: dockingtoaster/rasa-flask-railway:0.0.3
+    image: dockingtoaster/rasa-railway-flask:0.0.3
     ports:
       - 8080:8080
     expose: [ 8080 ]
