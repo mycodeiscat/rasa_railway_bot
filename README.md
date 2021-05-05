@@ -1,11 +1,11 @@
 # **Rasa Railway Tickets Bot**
 
-Foobar is a Python library for dealing with word pluralization.
+Bot for ticket booking
 
 ## Installation
 
 ###**For whatever reason Rasa in container just fallbacks every time. I'd be really grateful if you'll point out how to fix it**   
-~~### Using Docker:~~
+~~Using Docker:~~
 ```bash
 git clone https://github.com/mycodeiscat/rasa_railway_bot.git
 git checkout docker
